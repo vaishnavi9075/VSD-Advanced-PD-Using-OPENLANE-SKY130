@@ -15,57 +15,83 @@ This repository is to give brief idea about 'VSD-IAT Cloud based workshop on Adv
 ## DAY1:  Familiarity to open-lane framework.
 * About OpenLANE: 
              OpenLANE is an automated RTL to GDSII flow based on several components including OpenROAD, Yosys, Magic, Netgen, Fault, OpenPhySyn, SPEF-Extractor and custom methodology scripts for design exploration and optimization.The goal of OpenLANE is to produce clean GDSII without any human intervention. OpenLANE is tuned for Skywater 130nm open-source PDK and can be used to produce hard macros and chips.
-![SK2_L4_1](https://user-images.githubusercontent.com/80053265/114035661-ef2dac00-989c-11eb-80b2-d057858593d2.PNG)
+  ![SK2_L4_1](https://user-images.githubusercontent.com/80053265/114035661-ef2dac00-989c-11eb-80b2-d057858593d2.PNG)
+
 
 OpenLANE flow consists of several stages. By default, all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLANE can also be run interactively as shown here.
-![SK2_L2_1](https://user-images.githubusercontent.com/80053265/114035644-eb9a2500-989c-11eb-980d-5bff1f34a0ad.PNG)
+  ![SK2_L2_1](https://user-images.githubusercontent.com/80053265/114035644-eb9a2500-989c-11eb-980d-5bff1f34a0ad.PNG)
 
 1. Synthesis
-      Yosys - Performs RTL synthesis using GTech mapping
-      abc - Performs technology mappin to standard cells described in the PDK. We can adjust synthesis techniques using different integrated abc scripts to get desired results
-      OpenSTA - Performs static timing analysis on the resulting netlist to generate timing reports
-      Fault – Scan-chain insertion used for testing post fabrication. Supports ATPG and test patterns compaction
+      * Yosys - Performs RTL synthesis using GTech mapping
+      * abc - Performs technology mappin to standard cells described in the PDK. We can adjust synthesis techniques using different integrated abc scripts to get desired results
+      * OpenSTA - Performs static timing analysis on the resulting netlist to generate timing reports
+      * Fault – Scan-chain insertion used for testing post fabrication. Supports ATPG and test patterns compaction
   
 2. Floorplan and PDN  
-      Init_fp - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
-      Ioplacer - Places the macro input and output ports
-      PDN - Generates the power distribution network
-      Tapcell - Inserts welltap and decap cells in the floorplan
+      * Init_fp - Defines the core area for the macro as well as the rows (used for placement) and the tracks (used for routing)
+      * Ioplacer - Places the macro input and output ports
+      * PDN - Generates the power distribution network
+      * Tapcell - Inserts welltap and decap cells in the floorplan
       
 3. Placement 
           Placement is done in two steps, one with global placement in which we place the designs across the chip, but they will not be legal placement with some standard 
           cells overlapping each other, to fix this we perform a detailed placement which legalizes the design and ensures they fit in the standard cell rows
-      RePLace - Performs global placement
-      Resizer - Performs optional optimizations on the design
-      OpenPhySyn - Performs timing optimizations on the design
-      OpenDP - Perfroms detailed placement to legalize the globally placed components
+      * RePLace - Performs global placement
+      * Resizer - Performs optional optimizations on the design
+      * OpenPhySyn - Performs timing optimizations on the design
+      * OpenDP - Perfroms detailed placement to legalize the globally placed components
   
  4. CTS
-      TritonCTS - Synthesizes the clock distribution network
+      * TritonCTS - Synthesizes the clock distribution network
   
  5. Routing
-      FastRoute - Performs global routing to generate a guide file for the detailed router    
-      TritonRoute - Performs detailed routing from global routing guides
-      SPEF-Extractor - Performs SPEF extraction that include parasitic information
+      * FastRoute - Performs global routing to generate a guide file for the detailed router    
+      * TritonRoute - Performs detailed routing from global routing guides
+      * SPEF-Extractor - Performs SPEF extraction that include parasitic information
   
  6. GDSII Generation
-      Magic - Streams out the final GDSII layout file from the routed def
+      * Magic - Streams out the final GDSII layout file from the routed def
   
  7. Checks
-      Magic - Performs DRC Checks & Antenna Checks
-      Netgen - Performs LVS Checks
+      * Magic - Performs DRC Checks & Antenna Checks
+      * Netgen - Performs LVS Checks
 
 
 ## LAB1:
 
 
+SKY130A lib files that has been used are:
+
 ![2](https://user-images.githubusercontent.com/80053265/114036660-e4274b80-989d-11eb-82c7-11efe6672c80.PNG)
+
+
+The following snapshots are of Invoking OpenLane, Package Importing & Prepare Design.
+  -> ./flow.tcl is the script which runs the OpenLANE flow.
+  -> OpenLANE can be run interactively or in autonomous mode.
+  -> To run interactively, use the -interactive option with the ./flow.tcl script.
+  -> package require openlane 0.9 imports the package in openlane.
+  -> Prep is used to make file structure for our design.
+  
 ![6c](https://user-images.githubusercontent.com/80053265/114036928-1a64cb00-989e-11eb-98f0-8a1d32ea705f.PNG)
 ![6d](https://user-images.githubusercontent.com/80053265/114036983-26508d00-989e-11eb-8659-18ade4ad118d.PNG)
+
+
+Config.tcl files in Design folder i.e., picorv32a gives the Design specific configuration switches used by OpenLANE.
+An example of a configuration file is given:
+
 ![8](https://user-images.githubusercontent.com/80053265/114037003-2d779b00-989e-11eb-8017-a47487b49955.PNG)
+
+
+Now, to run synthesis the command used is
+   -> run_systhesis
+   
 ![11](https://user-images.githubusercontent.com/80053265/114037079-41bb9800-989e-11eb-8af9-7c5bf8e00f63.PNG)
+
+Statistics of our Design 'Picorv32a' looks like:
+
 ![12a](https://user-images.githubusercontent.com/80053265/114037146-5730c200-989e-11eb-82ec-b7761e652d33.PNG)
 ![12b](https://user-images.githubusercontent.com/80053265/114037161-59931c00-989e-11eb-9ca0-0c8d2c9c667a.PNG)
+
 
 
 ## DAY2: Floorplanning and introduction to library cells.
