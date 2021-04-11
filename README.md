@@ -18,7 +18,7 @@ This repository is to give brief idea about 'VSD-IAT Cloud based workshop on Adv
   ![SK2_L4_1](https://user-images.githubusercontent.com/80053265/114035661-ef2dac00-989c-11eb-80b2-d057858593d2.PNG)
 
 
-OpenLANE flow consists of several stages. By default, all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLANE can also be run interactively as shown here.
+* OpenLANE flow consists of several stages. By default, all flow steps are run in sequence. Each stage may consist of multiple sub-stages. OpenLANE can also be run interactively as shown here.
   ![SK2_L2_1](https://user-images.githubusercontent.com/80053265/114035644-eb9a2500-989c-11eb-980d-5bff1f34a0ad.PNG)
 
 1. Synthesis
@@ -33,7 +33,7 @@ OpenLANE flow consists of several stages. By default, all flow steps are run in 
       * PDN - Generates the power distribution network
       * Tapcell - Inserts welltap and decap cells in the floorplan
       
-3. Placement 
+3. Placement.  
           Placement is done in two steps, one with global placement in which we place the designs across the chip, but they will not be legal placement with some standard 
           cells overlapping each other, to fix this we perform a detailed placement which legalizes the design and ensures they fit in the standard cell rows
       * RePLace - Performs global placement
@@ -66,11 +66,11 @@ SKY130A lib files that has been used are:
 
 
 The following snapshots are of Invoking OpenLane, Package Importing & Prepare Design.
-  -> ./flow.tcl is the script which runs the OpenLANE flow.
-  -> OpenLANE can be run interactively or in autonomous mode.
-  -> To run interactively, use the -interactive option with the ./flow.tcl script.
-  -> package require openlane 0.9 imports the package in openlane.
-  -> Prep is used to make file structure for our design.
+  * ./flow.tcl is the script which runs the OpenLANE flow.
+  * OpenLANE can be run interactively or in autonomous mode.
+  * To run interactively, use the -interactive option with the ./flow.tcl script.
+  * package require openlane 0.9 imports the package in openlane.
+  * Prep is used to make file structure for our design.
   
 ![6c](https://user-images.githubusercontent.com/80053265/114036928-1a64cb00-989e-11eb-98f0-8a1d32ea705f.PNG)
 ![6d](https://user-images.githubusercontent.com/80053265/114036983-26508d00-989e-11eb-8659-18ade4ad118d.PNG)
@@ -83,7 +83,7 @@ An example of a configuration file is given:
 
 
 Now, to run synthesis the command used is
-   -> run_systhesis
+   * run_systhesis
    
 ![11](https://user-images.githubusercontent.com/80053265/114037079-41bb9800-989e-11eb-8af9-7c5bf8e00f63.PNG)
 
