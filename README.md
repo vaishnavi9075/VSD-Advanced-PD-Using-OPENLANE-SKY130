@@ -13,8 +13,7 @@ This repository is to give brief idea about 'VSD-IAT Cloud based workshop on Adv
 * LAB5
 
 ## DAY1:  Familiarity to open-lane framework.
-![SK1_L1_1](https://user-images.githubusercontent.com/80053265/114035565-d7562800-989c-11eb-84d8-9d412edec9c9.PNG)
-![SK1_L2_1](https://user-images.githubusercontent.com/80053265/114035635-e8069e00-989c-11eb-960f-ca9336360247.PNG)
+
 ![SK2_L2_1](https://user-images.githubusercontent.com/80053265/114035644-eb9a2500-989c-11eb-980d-5bff1f34a0ad.PNG)
 ![SK2_L4_1](https://user-images.githubusercontent.com/80053265/114035661-ef2dac00-989c-11eb-80b2-d057858593d2.PNG)
 
@@ -33,12 +32,6 @@ This repository is to give brief idea about 'VSD-IAT Cloud based workshop on Adv
 
 
 ## DAY2: Floorplanning and introduction to library cells.
-![sk1_l5 (2)](https://user-images.githubusercontent.com/80053265/114037944-0ec5d400-989f-11eb-90d8-9d8c3bde1111.png)
-![sk2_l3](https://user-images.githubusercontent.com/80053265/114038065-2d2bcf80-989f-11eb-98d2-e8658994de7f.png)
-![sk3_l3 (1)](https://user-images.githubusercontent.com/80053265/114038296-5fd5c800-989f-11eb-9b39-616ef24cc0bc.png)
-![sk3_l4 (1)](https://user-images.githubusercontent.com/80053265/114038311-62d0b880-989f-11eb-9fd1-f6804ee9f7da.png)
-![sk4_l2](https://user-images.githubusercontent.com/80053265/114038401-7a0fa600-989f-11eb-8d33-3c89642d18f6.png)
-
 
 ## LAB2:
 
