@@ -94,85 +94,275 @@ Statistics of our Design 'Picorv32a' looks like:
 
 
 
-## DAY2: Floorplanning and introduction to library cells.
 
+## DAY2: Floorplanning and introduction to library cells.
+   * In Floorplanning we typically set the:
+      1. Die Area
+      2. Core Area
+      3. Core Utilization
+      4. Aspect Ratio
+      5. Place Macros
+      6. Power distribution network (Normally done here but done later in OpenLANE)
+      7. Place input and output pins
+      
+      
 ## LAB2:
 
 
+  We can change the  clock period of the design in config.tcl file with the command:
+  * set env(CLOCK_PERIOD)
+  
 ![sk1_l5_3](https://user-images.githubusercontent.com/80053265/114039078-1043cc00-98a0-11eb-8d96-8524e85dd2b9.PNG)
+
+  Further changing the clock period to 12ns can be seen in the snapshot.
+  
 ![sk1_l5_again2](https://user-images.githubusercontent.com/80053265/114039146-1e91e800-98a0-11eb-8567-a364419ab66b.PNG)
+
+  * Variable Description of floorplanning & Placement given in README.md is:
+  
 ![sk1_l6_1a](https://user-images.githubusercontent.com/80053265/114039210-2f425e00-98a0-11eb-8ea8-d76e7ec6a5f3.PNG)
 ![sk1_l6_1b](https://user-images.githubusercontent.com/80053265/114039247-379a9900-98a0-11eb-96fb-179bf4b77865.PNG)
+
+
+Now, we can run floorplan in openlane. The command used is,
+   * run_floorplan
+   
 ![sk1_l6_4 (2)](https://user-images.githubusercontent.com/80053265/114039433-5a2cb200-98a0-11eb-9963-7955a7c4004b.PNG)
+
+The .def file is generated which describes core area and placement of standard cell SITES:
+
 ![sk1_l7_1 (2)](https://user-images.githubusercontent.com/80053265/114039513-6f094580-98a0-11eb-9bb8-1a547d250462.PNG)
+
+
+To view our floorplan in Magic we need to provide three files as input:
+   * Magic technology file (sky130A.tech)
+   * Def file of floorplan
+   * Merged LEF file
+   * command used: magic -T (directory of tech file) lef read (directory of lef file) def read (directory of .floorplan.def file) &
+   
 ![sk1_l7_2](https://user-images.githubusercontent.com/80053265/114039644-8d6f4100-98a0-11eb-8ccb-6e9ff20b6cc4.PNG)
+
+Here, pin ports, preplaced cells can be seen by zooming in the magic view as:
+
 ![sk1_l8_1](https://user-images.githubusercontent.com/80053265/114039696-952ee580-98a0-11eb-867d-9a3684222ea3.PNG)
 ![sk1_l8_2](https://user-images.githubusercontent.com/80053265/114039723-9bbd5d00-98a0-11eb-8cee-6db7940414f6.PNG)
+
+Selecting the perticular cell in magic view and typing 'What' in tkcon window we can see which cell is that:
+
 ![sk1_l8_3](https://user-images.githubusercontent.com/80053265/114039740-9d872080-98a0-11eb-8330-d533fb400141.PNG)
+
+
+Now, we will move to Placement. Command used is:
+    * run_placement.
+      and we will see the following output in openlane terminal.
+      
 ![sk2_l5_1](https://user-images.githubusercontent.com/80053265/114039747-9f50e400-98a0-11eb-8c61-61d44915826b.PNG)
+
+To view placement in Magic the command mirrors viewing floorplanning:
+    * magic -T (directory of tech file) lef read (directory of lef file) def read (directory of .placement.def file) &
+    
 ![sk2_l5_2](https://user-images.githubusercontent.com/80053265/114039753-a24bd480-98a0-11eb-93c9-4064f0aab380.PNG)
+
+
 
  
 ## DAY3: Standard cell characterization and introduction to sky130 tech files.
+   Here, we have seen 16 MASK CMOS Process and the steps involved in it are:
+   * Substrate Selection : Selection of base layer on which other regions will be formed.
+   * Create an active region for transistors : SiO2 and Si3N2 deposited. Pockets created using photoresist and lithography.
+   * Nwell & Pwell formation : Pwell uses boron and nwell uses phosphorus. Drive in diffusion by placing it in a high temperature furnace.
+   * Creating Gate terminal : For desired threshold value NA (doping Concentration) and Cox to be set.
+   * Lightly Doped Drain (LDD) formation : LDD done to avoid hot electron effect and short channel effect.
+   * Source and Drain formation : Forming the source and drain.
+   * Contacts & local interconnect Creation : SiO2 removed using HF etch. Titanium deposited using sputtering.
+   * Higher Level metal layer formation : Upper layers of metals deposited.
+   
+   
 ## LAB3
 
+Following 3 are the zoomed in view of magic view of design after placement:
 
 ![sk1_l1_1](https://user-images.githubusercontent.com/80053265/114301071-aebe7000-9ae0-11eb-9e34-1321c94af5c3.PNG)
 ![sk1_L1_2](https://user-images.githubusercontent.com/80053265/114301131-fe04a080-9ae0-11eb-883b-abaa18fedf1f.PNG)
 ![sk1_l1_3](https://user-images.githubusercontent.com/80053265/114301142-052bae80-9ae1-11eb-8e4f-6d6c4e79015f.PNG)
+
+
+Magic Layout View of Inverter Standard Cell
 ![sk1_l5_1](https://user-images.githubusercontent.com/80053265/114301146-09f06280-9ae1-11eb-813f-bdeaacfdf09d.PNG)
-![sk2_l8_3](https://user-images.githubusercontent.com/80053265/114301188-5fc50a80-9ae1-11eb-9449-da840303e50c.PNG)
+
+
+To extract the parasitic spice file for the associated layout one needs to create an extraction file:
 ![sk2_l9_6](https://user-images.githubusercontent.com/80053265/114301203-75d2cb00-9ae1-11eb-93f6-5323c041cd9a.PNG)
+
+After generating the extracted file we need to output the .ext file to a spice file:
 ![sk2_l9_3](https://user-images.githubusercontent.com/80053265/114301218-8420e700-9ae1-11eb-86b7-044db5a403a6.PNG)
+
+Run the what command in the tkcon window:
 ![sk2_l96](https://user-images.githubusercontent.com/80053265/114301237-9ef35b80-9ae1-11eb-89cb-c89903a84708.PNG)
+
+
+Spice file that extracted is:
 ![sk3_l1_1(modified_spicefile1)](https://user-images.githubusercontent.com/80053265/114301241-a7e42d00-9ae1-11eb-8910-9e75afbb82ad.PNG)
+
+To run the simulation with ngspice, invoke the ngspice tool with the spice file as input:
+The plot can be viewed by plotting the output vs time while sweeping the input:
 ![sk3_l2_1](https://user-images.githubusercontent.com/80053265/114301249-b29ec200-9ae1-11eb-971b-efae0bbf0f54.PNG)
 ![sk3_l2_4](https://user-images.githubusercontent.com/80053265/114301257-bc282a00-9ae1-11eb-80cd-1b0705b0384a.PNG)
 
 
 
+
 ## DAY4: Introduction to clock tree synthesis and tritonCTS.
+       Place and routing (PnR) is performed using an abstract view of the GDS files generated by Magic. The abstract information will include metal and pin information. The PnR 
+   tool will use the abstract view information, formally defined as LEF information, to perform interconnect routing in conjunction to routing guides generated from
+   the PnR flow.
+   
+   
 ## LAB4
-
-
-![sk1_l1_2](https://user-images.githubusercontent.com/80053265/114301575-08279e80-9ae3-11eb-993d-0b7c79c22e5e.PNG)
+tracks.info file :
+   Tracks are used during the routing stage, routes can go over the tracks, or metal traces can go over the tracks. What the file is saying is that for the li1 layer the x or
+horizontal track is at an offset of 0.23 and a pitch of 0.46. The offset is the distance from the origin to the routing track in either the x or y direction. It is half
+the pitch so that means the tracks are centered around the origin.
 ![sk1_l1_3](https://user-images.githubusercontent.com/80053265/114301576-0cec5280-9ae3-11eb-83dc-2062aac1b3f0.PNG)
+
+To ensure a cell is aligned with routing grids in Magic we can display a grid on top of the gds file. for that the command used in tkcon window are
+   * grid [xspacing yspacing xorigin yorigin]
+   
 ![sk1_l1_5](https://user-images.githubusercontent.com/80053265/114301588-1b3a6e80-9ae3-11eb-896c-f8662472657e.PNG)
+
+
+saving the mag file using command in tkcon window:
+   * save filename.mag
+   
 ![sk1_l2_1](https://user-images.githubusercontent.com/80053265/114301598-2f7e6b80-9ae3-11eb-81ad-6bbb860ebcb0.PNG)
+
+
+Generating lef output for cell:
+    * lef write
+    
 ![sk1_l2_2](https://user-images.githubusercontent.com/80053265/114301603-386f3d00-9ae3-11eb-9daa-8e90df41a19e.PNG)
+
+The generated lef file is as shown in snapshot:
+
 ![sk1_l2_3](https://user-images.githubusercontent.com/80053265/114301624-4e7cfd80-9ae3-11eb-854b-5db83fc8de35.PNG)
-![sk1_l2_5](https://user-images.githubusercontent.com/80053265/114301630-5b015600-9ae3-11eb-8b40-598e92f32ba8.PNG)
+
+
+Reconfigure synthesis switches in the config.tcl file:
+
 ![sk1_l2_6](https://user-images.githubusercontent.com/80053265/114301640-66ed1800-9ae3-11eb-93d1-bd4806fefb31.PNG)
+
+
+Now, the synthesis has been completed.
 ![sk1_l3_2](https://user-images.githubusercontent.com/80053265/114301699-99971080-9ae3-11eb-814f-184da31f8caf.PNG)
+
+
+Now, we try to reduce the slack by changing SYNTH_STRATEGY and SYNTH_SIZING. Commands used are:
+  * set ::env(SYNTH_STRATEGY)
+  * set ::env(SYNTH_SIZING)
+  
 ![sk1_l7_1 (2)](https://user-images.githubusercontent.com/80053265/114301709-a582d280-9ae3-11eb-8a58-08ea7dd65d8d.PNG)
+
+Here, we can see reduced slack:
+
 ![sk1_l7_2](https://user-images.githubusercontent.com/80053265/114301727-af0c3a80-9ae3-11eb-8e05-4e576046ab37.PNG)
 ![sk1_l7_3](https://user-images.githubusercontent.com/80053265/114301747-bdf2ed00-9ae3-11eb-8544-9bb42608b9af.PNG)
+
+Again, we run floorplan in openlane:
+
 ![sk1_l7_4](https://user-images.githubusercontent.com/80053265/114301766-cc410900-9ae3-11eb-886e-876f5c97ca92.PNG)
+
+Running placement:
+
 ![sk1_l7_5](https://user-images.githubusercontent.com/80053265/114301781-d5ca7100-9ae3-11eb-93fc-0d32f8fd1623.PNG)
+
+The placement.def file has been generated in respective directory.
+
 ![sk1_l7_6](https://user-images.githubusercontent.com/80053265/114301796-e11d9c80-9ae3-11eb-9f93-937b584cf1e8.PNG)
+
+
+Magic view of postplacement is:
+
 ![sk1_l7_7](https://user-images.githubusercontent.com/80053265/114301806-eaa70480-9ae3-11eb-8769-21126220440d.PNG)
+
+zoomed in view is as:
+
 ![sk1_l7_8](https://user-images.githubusercontent.com/80053265/114301871-3659ae00-9ae4-11eb-88fa-5c6738dbf4e7.PNG)
+
+Here, is the clear view of 'vsdinv' cell placed in the picorv32a design:
+
 ![sk1_l7_11](https://user-images.githubusercontent.com/80053265/114301887-44a7ca00-9ae4-11eb-96bf-fba28f83a24f.PNG)
+
+
+Using 'expand' in tkcon window and seeing the output in layout window:
+
 ![sk1_l7_12](https://user-images.githubusercontent.com/80053265/114301898-54bfa980-9ae4-11eb-9e91-8d454914ee89.PNG)
-![sk2_l3_1](https://user-images.githubusercontent.com/80053265/114301908-5e491180-9ae4-11eb-9a83-0edf5f0db5c0.PNG)
+
+
+The sdc file in src folder is as shown in snapshot:
+
 ![sk2_l3_2](https://user-images.githubusercontent.com/80053265/114301912-61dc9880-9ae4-11eb-9ed6-fd7f793283c0.PNG)
-![sk2_l3_3](https://user-images.githubusercontent.com/80053265/114301925-702ab480-9ae4-11eb-93fa-03b45b0c968d.PNG)
+
+
+Now, we will run cts. Command used is:
+   * run_cts
+   
 ![sk3_l4_1](https://user-images.githubusercontent.com/80053265/114301962-90f30a00-9ae4-11eb-9729-7cc74f25985d.PNG)
+
+
+We will have a look for the .tcl files in openroad:
+
 ![sk3_l4_1a (2)](https://user-images.githubusercontent.com/80053265/114302009-c566c600-9ae4-11eb-872a-5b8f642daf08.PNG)
+
+or_cts.tcl file is shown here. The highlighted lines are being executed when we run the command 'run_cts' in openlane flow.
+
 ![sk3_l4_4](https://user-images.githubusercontent.com/80053265/114302046-f0511a00-9ae4-11eb-8c32-d39607f63b87.PNG)
+
+
 ![sk3_l4_7](https://user-images.githubusercontent.com/80053265/114302112-44f49500-9ae5-11eb-9967-2fc56b1967c8.PNG)
 ![sk4_l3_7](https://user-images.githubusercontent.com/80053265/114302201-9c930080-9ae5-11eb-8d58-abd20b8ac072.PNG)
 ![sk4_l4_2](https://user-images.githubusercontent.com/80053265/114302225-bcc2bf80-9ae5-11eb-8072-688c5c19b9b8.PNG)
 
 
 
+
 ## DAY5: Introduction to routing using tritonRoute
+   * Global and Detailed Routing.
+          OpenLANE uses TritonRoute as the routing engine for physical implementations of designs. Routing consists of two stages:
+        1. Global Routing - Routing guides are generated for interconnects on our netlist defining what layers, and where on the chip each of the nets will be reputed
+        2. Detailed Routing - Metal traces are iteratively laid across the routing guides to physically implement the routing guides
+        
+        
 ## LAB5
 
+Again, the complete openlane flow has been run as earlier:
 
 ![sk2_l1_1](https://user-images.githubusercontent.com/80053265/114302328-39559e00-9ae6-11eb-92f3-d0aed1bf1f3c.PNG)
+
+Generating pdn (power delivery network) using command:
+    * gen_pdn
+    
 ![sk2_l1_3](https://user-images.githubusercontent.com/80053265/114302359-5b4f2080-9ae6-11eb-881d-4d8b7bd1bfc8.PNG)
+
+
+Routing is completed and we can see it as:
+
 ![sk2_l3_1](https://user-images.githubusercontent.com/80053265/114302408-85084780-9ae6-11eb-91ec-244d1ce555d0.PNG)
+
+The no. of violations can be seen at highlighted lines:
+
 ![sk3_l4_1](https://user-images.githubusercontent.com/80053265/114302419-8df91900-9ae6-11eb-80ea-aa4889e48382.PNG)
+
+
+After routing has been completed interconnect parasitics can be extracted to perform sign-off post-route STA analysis. The parasitics are extracted into a SPEF file. The 
+SPEF extractor is not included within OpenLANE as of now.
+
 ![sk3_l4_2](https://user-images.githubusercontent.com/80053265/114302436-a1a47f80-9ae6-11eb-8bea-e2518c92aef7.PNG)
+
+And finally these are the 4 verilog files we have in synthesis directory. 
+
 ![sk3_l4_3](https://user-images.githubusercontent.com/80053265/114302441-a701ca00-9ae6-11eb-8e0a-3b5bfabe0e7b.PNG)
+
+
+
+## Acknowledgements
+     * Kunal Ghosh - Co-founder (VSD Corp. Pvt. Ltd)
